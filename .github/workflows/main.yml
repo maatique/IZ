@@ -28,7 +28,8 @@ jobs:
     - name: Connect to Server
       uses: appleboy/ssh-action@master
       with:
-        host: 157.245.86.84
+        host: 
+         157.245.86.84
         username: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
     
