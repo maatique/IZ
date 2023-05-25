@@ -34,5 +34,5 @@ jobs:
     
   
     - name: Create Folder
-      run:  mkdir -p ~/
+      run:  mkdir -p ~/ali/
    
