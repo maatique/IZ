@@ -34,5 +34,5 @@ jobs:
     
   
     - name: Create Folder
-      run:  touch /home/mohid/file.txt
+      run:  touch /root/mohid/file1.txt
    
