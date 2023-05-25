@@ -30,7 +30,7 @@ jobs:
       with:
         host: 
          157.245.86.84
-        username: mohid
+        username: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
     
   
