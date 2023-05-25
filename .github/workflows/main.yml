@@ -18,14 +18,6 @@ jobs:
     
     - name: Add host key to known_hosts
       run: ssh-keyscan -t rsa root@157.245.86.84 >> ~/.ssh/known_hosts
-   
-    - name: Connect to Server
-      uses: appleboy/ssh-action@master
-      with:
-        host: 
-           157.245.86.84
-        username: root
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
 
 
     - name: Commit and push changes
