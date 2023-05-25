@@ -16,5 +16,5 @@ jobs:
     - name: Create Folder
       run: sudo touch /root/file.txt
     - name: insert text
-      run: cat > /root/file.txt
+      run: sudo cat > /root/file.txt
         hi mohid how are
