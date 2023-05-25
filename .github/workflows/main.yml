@@ -17,4 +17,4 @@ jobs:
       run: sudo touch /root/file.txt
     - name: insert text
       run: cat > /root/file.txt
-      text: hi mohid how are
+        hi mohid how are
