@@ -12,7 +12,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    
+   
+    - name: Setup SSH
+      run: mkdir -p ~/.ssh && touch ~/.ssh/known_hosts
     
     - name: Add host key to known_hosts
       run: ssh-keyscan -t rsa root@157.245.86.84 >> ~/.ssh/known_hosts
