@@ -35,5 +35,5 @@ jobs:
     
   
     - name: Create Folder
-      run:  mkdir /home/mohid/ali
+      run:  mkdir /root/home/mohid/ali
    
