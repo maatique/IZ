@@ -16,11 +16,3 @@ jobs:
     - name: Create Folder
       run: sudo touch /root/file.txt
     
-   
-
-
-    - name: Commit and push changes
-      run: |
-        git add .
-        git commit -m 'Create file'
-        git push
