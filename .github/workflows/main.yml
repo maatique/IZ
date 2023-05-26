@@ -21,6 +21,6 @@ jobs:
   
     - name: Create Folder
       run:  |
-       mkdir -p ~/ali
+       mkdir -p ~/kabir
        cd ~ 
    
