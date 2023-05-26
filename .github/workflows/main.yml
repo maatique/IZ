@@ -1,4 +1,4 @@
-name: Create File Pipeline
+name: Create Pipeline
 
 on:
   push:
@@ -6,21 +6,16 @@ on:
       - main
 
 jobs:
-  create_folder:
+  deploy:
     runs-on: self-hosted
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-   
- 
+    - name: Copy HTML files
+      run:  
+          sudo cp -r . /var/www/html/
 
-  
-    
-  
-    - name: Create Folder
-      run:  |
-       mkdir -p ~/kabir
-       cd ~ 
-   
+    - name: Restart Nginx
+      run: sudo service nginx restart
