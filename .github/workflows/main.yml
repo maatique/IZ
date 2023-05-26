@@ -20,5 +20,5 @@ jobs:
     
   
     - name: Create Folder
-      run:  cd /home/mohid && mkdir /ali
+      run:  sudo cd /home/mohid && sudo mkdir -p /ali
    
