@@ -12,7 +12,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
+    
+    - name: sync HTML
+      run:  rsync -avz /var/www/html/index.nginx-debian.html
    
     - name: Restart Nginx
-      run: systemctl restart nginx
+      run:  sudo systemctl restart nginx
