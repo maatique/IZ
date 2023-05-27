@@ -17,4 +17,4 @@ jobs:
       run:  rsync -avz /var/www/html/index.nginx-debian.html
    
     - name: Restart Nginx
-      run:  sudo systemctl restart nginx
+      run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl restart nginx
