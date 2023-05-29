@@ -7,25 +7,12 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-  
-    - name: Setup SSH
-      run: mkdir -p ~/.ssh && touch ~/.ssh/known_hosts
-    - name: Add host key to known_hosts
-      run: ssh-keyscan -t rsa 157.230.60.4 >> ~/.ssh/known_hosts
-      
-    - name: SSH to server and Deploy App
-      uses: appleboy/ssh-action@master
-      with:
-          host:
-           157.230.60.4
-          username: root
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          
+            
     - name: sync HTML
       run:  rsync -avz /var/www/html/IZ/mohid.html
 
