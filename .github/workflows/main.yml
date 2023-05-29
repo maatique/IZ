@@ -14,7 +14,8 @@ jobs:
       uses: actions/checkout@v2
     
     - name: sync HTML
-      run:  rsync -avz /var/www/html/IZ/index.nginx-debian.html
+      run:  rsync -avz  /home/ali/actions-runner/_work/IZ/IZ
+                          /var/www/html/
    
     - name: Restart Nginx
       run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl restart nginx
