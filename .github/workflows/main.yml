@@ -20,6 +20,6 @@ jobs:
     - name: Restart Nginx
       run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl restart nginx
     - name: my name 
-      run: whoami | pwd
+      run: whoami && pwd
       
     
