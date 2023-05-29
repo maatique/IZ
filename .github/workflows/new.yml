@@ -1,0 +1,29 @@
+name: Create Pipeline
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: SSH to server and Deploy App
+      uses: appleboy/ssh-action@master
+      with:
+          host:
+           157.230.60.4
+          username: root
+          key: SSH_PRIVATE_KEY
+          port:
+            22
+    - name: sync HTML
+      run:  rsync -avz /var/www/html/IZ/mohid.html
+
+    - name: Restart Nginx
+      run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl restart nginx
