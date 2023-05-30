@@ -41,7 +41,7 @@ jobs:
 
       - name: Create PostgreSQL database
         run: |
-          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S -u postgres psql -c "CREATE DATABASE invozone;"
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S -u postgres psql -c "CREATE DATABASE devops;"
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S -u postgres psql -c "CREATE USER mohid WITH ENCRYPTED PASSWORD '123456';"
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE invozone TO mohid;"
 
