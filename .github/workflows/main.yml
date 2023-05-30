@@ -43,8 +43,8 @@ jobs:
       - name: Connect to PostgreSQL database
         run: |
               export PGPASSWORD=<'123456'>
-              psql -h <'157.230.60.4'> -p <'22'> -U <'mohid'> -d <'invozone'>
-
+              echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S -u postgres psql -h <'157.230.60.4'> -p <'22'> -U <'mohid'> -d <'invozone'>
+          
 
       - name: Build the React.js application
         run: npm run build
