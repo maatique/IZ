@@ -17,21 +17,21 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - name: Install NPM
-        run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get install npm -y
-
+      - name: update
+        run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get update -y
+      
+      - name: upgrade
       - name: Install dependencies
-        run:  npm ci
+        run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get upgrade -y
 
-      - name: Build application
-        run:  npm run build
-
+      - name: Install NodeJs and Npm 
+        run:  |
+              echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt install nodejs -y 
+              echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt install npm -y
+              
       - name: Set up PostgreSQL
-        run: |
-          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get update -y
-          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get install postgresql -y
-
-
+        run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get install postgresql -y
+     
       - name: Set up PostgreSQL client
         run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get install postgresql-client -y
 
@@ -40,7 +40,7 @@ jobs:
           psql -c "CREATE DATABASE invozone;"
           psql -c "CREATE USER mohid WITH ENCRYPTED PASSWORD '123456';"
           psql -c "GRANT ALL PRIVILEGES ON DATABASE invozone TO mohid;"
-
+      
       - name: Deploy to server
         run: |
           # Copy the build files to your server (e.g., using SCP or FTP)
