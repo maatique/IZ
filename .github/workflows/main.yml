@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 14
       - name: Install NPM
-        run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get install npm
+        run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get install npm -y
 
       - name: Install dependencies
         run:  npm ci
@@ -28,12 +28,12 @@ jobs:
 
       - name: Set up PostgreSQL
         run: |
-          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get update
-          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get install postgresql
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get update -y
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get install postgresql -y
 
 
       - name: Set up PostgreSQL client
-        run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get install postgresql-client
+        run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get install postgresql-client -y
 
       - name: Create PostgreSQL database
         run: |
