@@ -17,30 +17,37 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - name: update
-        run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get update -y
-      
-      - name: upgrade
-      - name: Install dependencies
-        run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get upgrade -y
 
-      - name: Install NodeJs and Npm 
-        run:  |
-              echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt install nodejs -y 
-              echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt install npm -y
-              
+      - name: Update and upgrade server packages
+        run: |
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get update -y
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get upgrade -y
+
+      - name: Install Node.js and npm
+        run: |
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt install nodejs -y
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt install npm -y
+
+      - name: Install project dependencies
+        run: npm install
+
       - name: Set up PostgreSQL
-        run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get install postgresql -y
-     
+        run: |
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get install postgresql -y
+
       - name: Set up PostgreSQL client
-        run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get install postgresql-client -y
+        run: |
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get install postgresql-client -y
 
       - name: Create PostgreSQL database
         run: |
-          psql -c "CREATE DATABASE invozone;"
-          psql -c "CREATE USER mohid WITH ENCRYPTED PASSWORD '123456';"
-          psql -c "GRANT ALL PRIVILEGES ON DATABASE invozone TO mohid;"
-      
+          sudo -u postgres psql -c "CREATE DATABASE invozone;"
+          sudo -u postgres psql -c "CREATE USER mohid WITH ENCRYPTED PASSWORD '123456';"
+          sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE invozone TO mohid;"
+
+      - name: Build the React.js application
+        run: npm run build
+
       - name: Deploy to server
         run: |
           # Copy the build files to your server (e.g., using SCP or FTP)
