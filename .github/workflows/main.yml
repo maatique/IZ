@@ -41,9 +41,9 @@ jobs:
 
       - name: Create PostgreSQL database
         run: |
-          sudo -u postgres psql -c "CREATE DATABASE invozone;"
-          sudo -u postgres psql -c "CREATE USER mohid WITH ENCRYPTED PASSWORD '123456';"
-          sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE invozone TO mohid;"
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S -u postgres psql -c "CREATE DATABASE invozone;"
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S -u postgres psql -c "CREATE USER mohid WITH ENCRYPTED PASSWORD '123456';"
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE invozone TO mohid;"
 
       - name: Build the React.js application
         run: npm run build
