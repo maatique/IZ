@@ -1,4 +1,4 @@
-name: Create Pipeline
+name: Deploy React.js with PostgreSQL
 
 on:
   push:
@@ -6,20 +6,40 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: self-hosted
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    
-    - name: copy HTML
-      run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S cp -R  /home/ali/actions-runner/_work/IZ/IZ/index.nginx-debian.html
-          /var/www/html/IZ/index.nginx-debian.html                                
-      
-    - name: Restart Nginx
-      run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl restart nginx
-    - name: my name 
-      run: whoami && pwd
-      
-    
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Set up PostgreSQL
+        run: |
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get update
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sudo apt-get install postgresql
+
+
+      - name: Set up PostgreSQL client
+        run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get install postgresql-client
+
+      - name: Create PostgreSQL database
+        run: |
+          psql -c "CREATE DATABASE invozone;"
+          psql -c "CREATE USER mohid WITH ENCRYPTED PASSWORD '123456';"
+          psql -c "GRANT ALL PRIVILEGES ON DATABASE invozone TO mohid;"
+
+      - name: Deploy to server
+        run: |
+          # Copy the build files to your server (e.g., using SCP or FTP)
+          # Run any necessary scripts to start your React.js application on the server
