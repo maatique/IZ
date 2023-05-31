@@ -46,12 +46,7 @@ jobs:
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S -u postgres psql -U 'mohid' -d 'invozone' -W '123456'
       
       
-      - name: install react js project
-        run:  npx create-react-app mohid
-      
-      
-      
-        
+            
       - name: run modoe package manager
         run:  npm start
             
