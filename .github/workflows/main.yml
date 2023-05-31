@@ -50,8 +50,7 @@ jobs:
         run:  npx create-react-app mohid
       
       
-      - name: react project 
-        run: cd /home/ali/mohid
+      
         
       - name: run modoe package manager
         run:  npm start
@@ -63,7 +62,7 @@ jobs:
       
       - name: Deploy to server
         run: |
-          cp -r /home/ali/mohid/build/* /var/www/html/IZ
+          cp -r /home/ali/action-runner/_work/IZ/IZ/build/* /var/www/html/IZ
           
       - name: restart nginx
         run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl restart nginx
