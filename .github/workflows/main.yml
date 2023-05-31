@@ -18,24 +18,25 @@ jobs:
         with:
           node-version: 14
 
+      
       - name: Update and upgrade server packages
         run: |
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get update -y
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get upgrade -y
 
+      
       - name: Install Node.js and npm
         run: |
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt install nodejs -y
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt install npm -y
-
-      - name: Install project dependencies
-        run: npm install
-
+           
+    
       - name: Set up PostgreSQL
         run: |
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get install postgresql -y
 
-      - name: Set up PostgreSQL client
+      
+      - name: Connect PostgreSQL 
         run: |
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get install postgresql-client -y
 
@@ -43,12 +44,26 @@ jobs:
       - name: Connect to PostgreSQL database
         run: |
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S -u postgres psql -U 'mohid' -d 'invozone' -W '123456'
-          
-
+      
+      
+      - name: install react js project
+        run:  npx create-react-app mohid
+      
+      
+      - name: react project 
+        run: cd /home/ali/mohid
+        
+      - name: run modoe package manager
+        run:  npm start
+            
+      
       - name: Build the React.js application
         run: npm run build
 
+      
       - name: Deploy to server
         run: |
-          # Copy the build files to your server (e.g., using SCP or FTP)
-          # Run any necessary scripts to start your React.js application on the server
+          cp -r /home/ali/mohid/build/* /var/www/html/IZ
+          
+      - name: restart nginx
+        run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl restart nginx
