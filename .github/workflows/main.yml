@@ -52,20 +52,19 @@ jobs:
         run: | 
            cd /home/ali
            npx create-react-app reactapp
-        
+    
+      - name: Build the React.js application
+        run: |
+           cd /home/ali/reactapp 
+           npm run build
               
+      
       - name: run node package manager
         run: |
             cd /home/ali/reactapp
             npm start  
             
-      
-      - name: Build the React.js application
-        run: |
-           cd /home/ali/reactapp 
-           npm run build
-
-      
+            
       - name: Deploy to server
         run: |
           cp -r /home/ali/reactapp/build/* /var/www/html/IZ
