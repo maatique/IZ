@@ -49,10 +49,10 @@ jobs:
            cd  /home/ali/
            echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt install npm -y
             
-      - name: create react app
-        run: | 
-           cd /home/ali
-           npx create-react-app reactapp
+      #- name: create react app
+      #  run: | 
+       #    cd /home/ali
+        #   npx create-react-app reactapp
     
       - name: Build the React.js application
         run: |
@@ -62,7 +62,7 @@ jobs:
             
       - name: Deploy to server
         run: |
-          cp -r /home/ali/reactapp/build/* /var/www/html/IZ
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S cp -r /home/ali/reactapp/build/* /var/www/html/IZ
           
       - name: restart nginx
         run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl restart nginx
