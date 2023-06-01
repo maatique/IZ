@@ -23,41 +23,52 @@ jobs:
         run: |
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get update -y
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get upgrade -y
-
       
-      - name: Install Node.js and npm
-        run: |
-          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt install nodejs -y
-          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt install npm -y
-           
+      
     
       - name: Set up PostgreSQL
         run: |
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get install postgresql -y
-
       
       - name: Connect PostgreSQL 
         run: |
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get install postgresql-client -y
-
      
       - name: Connect to PostgreSQL database
         run: |
           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S -u postgres psql -U 'mohid' -d 'invozone' -W '123456'
       
-      
+     
+      - name: Install Node.js
+        run: |
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt install nodejs -y
+    
+      - name: install npm 
+        run: |
+           cd  /home/ali/
+           echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt install npm -y
             
-      - name: run modoe package manager
-        run:  npm start
+      - name: create react app
+        run: | 
+           cd /home/ali
+           npx create-react-app reactapp
+        
+              
+      - name: run node package manager
+        run: |
+            cd /home/ali/reactapp
+            npm start  
             
       
       - name: Build the React.js application
-        run: npm run build
+        run: |
+           cd /home/ali/reactapp 
+           npm run build
 
       
       - name: Deploy to server
         run: |
-          cp -r /home/ali/action-runner/_work/IZ/IZ/build/* /var/www/html/IZ
+          cp -r /home/ali/reactapp/build/* /var/www/html/IZ
           
       - name: restart nginx
         run:  echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl restart nginx
